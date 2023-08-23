@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { EMPTY_FROM_VALUES } from "../shared/constans";
 import { validationInput } from "../services/users";
+import Swal from "sweetalert2";
 
 const ModalFrom = ({
   isShowModal,
@@ -17,6 +18,7 @@ const ModalFrom = ({
     reset,
     formState: { errors },
   } = useForm();
+
   const submit = (data) => {
     isUserUpdating ? updateUser(data, reset) : createUser(data, reset);
   };

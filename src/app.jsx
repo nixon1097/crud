@@ -5,6 +5,7 @@ import ModalFrom from "./components/ModalFrom";
 import { EMPTY_FROM_VALUES } from "./shared/constans";
 import UserList from "./components/UserList";
 import HeaderUser from "./components/HeaderUser";
+import Swal from "sweetalert2";
 
 const BASE_URL = "https://users-crud.academlo.tech/";
 export function App() {
@@ -25,14 +26,36 @@ export function App() {
         getAllUsers();
         setIsShowModal(false);
         reset(EMPTY_FROM_VALUES);
+        alert();
       })
       .catch((err) => console.log(err));
   };
   const deleteUser = (idUser) => {
-    axios
-      .delete(BASE_URL + `users/${idUser}/`)
-      .then(() => getAllUsers())
-      .catch((err) => console.log(err));
+    Swal.fire({
+      title: "Eliminar Usuario",
+      html: `<p>Esta seguro de eliminar al usuario <b></b></p>`,
+      icon: "error",
+
+      showDenyButton: true,
+      denyButtonText: "No",
+      confirmButtonText: "Si",
+      denyButtonColor: "#ff0000",
+    }).then((result) => {
+      if (!result.isConfirmed) {
+        return;
+      } else {
+        axios
+          .delete(BASE_URL + `users/${idUser}/`)
+          .then(() => {
+            getAllUsers();
+            Swal.fire({
+              title: " Usuario Eliminado ",
+              icon: "success",
+            });
+          })
+          .catch((err) => console.log(err));
+      }
+    });
   };
   const updateUser = (userUpdate, reset) => {
     axios
@@ -42,13 +65,27 @@ export function App() {
         setIsShowModal(false);
         reset(EMPTY_FROM_VALUES);
         setIsUserUpdating(null);
+        Swal.fire("Actualizado!", "", "success");
       })
       .catch((err) => console.log(err));
   };
   const handleClickUpdateUser = (user) => {
-    getAllUsers();
-    setIsShowModal(true);
-    setIsUserUpdating(user);
+    Swal.fire({
+      title: "Advertencia",
+      text: "quieres editar  el usuario ?",
+      icon: "warning",
+      showDenyButton: true,
+      denyButtonText: "No",
+      confirmButtonText: "Si",
+    }).then((response) => {
+      if (response.isConfirmed) {
+        getAllUsers();
+        setIsShowModal(true);
+        setIsUserUpdating(user);
+      } else if (response.isDenied) {
+        setIsShowModal(false);
+      }
+    });
   };
 
   const handleClickOpenModal = () => {
@@ -58,8 +95,16 @@ export function App() {
     getAllUsers();
   }, []);
 
+  const alert = () => {
+    Swal.fire({
+      title: "Creado",
+      text: "Usuario creado con exito",
+      icon: "success",
+    });
+  };
+
   return (
-    <section className="">
+    <section className=" p-2">
       <HeaderUser handleClickOpenModal={handleClickOpenModal} />
       <ModalFrom
         isShowModal={isShowModal}

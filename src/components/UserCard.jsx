@@ -1,13 +1,13 @@
 const UserCard = ({ user, deleteUser, handleClickUpdateUser }) => {
   return (
-    <article className="  flex flex-col justify-center mt-2  bg-white px-2  border-2 rounded-sm text-start  h-full  max-w-sm">
-      <ul className=" flex flex-col gap-2  text-lg font-lato text-black/70  justify-between items-start  hover:justify-betwee ">
-        <li className="flex flex-grow w-full  text-center text-3xl font-lora pt-2  border-b-2 border-black/10">{`${user.first_name} ${user.last_name}`}</li>
+    <article className="  flex flex-col justify-center mt-2  bg-white   p-2 border-2 rounded-sm text-start  max-h-72  max-w-screen-sm shadow-[45px_10px_70px_-55px] shadow-black/50 ">
+      <ul className=" flex flex-col gap-2  text-sm font-lato text-black/70  justify-between items-start  hover:justify-betwee ">
+        <li className="flex flex-grow w-full  text-center text-xl font-lora pt-2  border-b-2 border-black/10">{`${user.first_name} ${user.last_name}`}</li>
         <li className="flex-col flex">
           <span className="font-bold w-full text-sm text-slate-200">Email</span>
           {user.email}
         </li>
-        <li className="flex-col flex  w-full  justify-center items-center border-b-2 border-black/5 ">
+        <li className="flex-col flex  w-full   border-b-2 border-black/5 ">
           <span className="font-bold text-sm text-slate-200 ">
             <i class="bx bx-gift text-black "></i> Birthday
           </span>

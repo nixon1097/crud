@@ -7,7 +7,8 @@ import UserList from "./components/UserList";
 import HeaderUser from "./components/HeaderUser";
 import Swal from "sweetalert2";
 
-const BASE_URL = "https://users-crud.academlo.tech/";
+// const BASE_URL = "https://users-crud.academlo.tech/";
+const BASE_URL = "https://user-crud-ix0s.onrender.com";
 export function App() {
   const [isShowModal, setIsShowModal] = useState(false);
   const [users, setUsers] = useState([]);
@@ -15,13 +16,13 @@ export function App() {
   //   get all users
   const getAllUsers = () => {
     axios
-      .get(BASE_URL + "users/")
+      .get(BASE_URL + "/users")
       .then(({ data }) => setUsers(data))
       .catch((err) => console.log(err));
   };
   const createUser = (newUser, reset) => {
     axios
-      .post(BASE_URL + "users/", newUser)
+      .post(`${BASE_URL}/users`, newUser)
       .then(() => {
         getAllUsers();
         setIsShowModal(false);
@@ -45,7 +46,7 @@ export function App() {
         return;
       } else {
         axios
-          .delete(BASE_URL + `users/${idUser}/`)
+          .delete(BASE_URL + `/users/${idUser}/`)
           .then(() => {
             getAllUsers();
             Swal.fire({
@@ -59,7 +60,7 @@ export function App() {
   };
   const updateUser = (userUpdate, reset) => {
     axios
-      .put(BASE_URL + `users/${isUserUpdating.id}/`, userUpdate)
+      .put(BASE_URL + `/users/${isUserUpdating.id}/`, userUpdate)
       .then(() => {
         getAllUsers();
         setIsShowModal(false);
